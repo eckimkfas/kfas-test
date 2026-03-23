@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="인재림 6기 관리자 대시보드">
+  <title>관리자 대시보드 | 인재림 6기</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar" id="navbar">
+    <div class="container">
+      <div class="navbar-brand">
+        <div class="logo-icon">林</div>
+        <span>인재림 6기 관리자</span>
+      </div>
+      <div class="navbar-actions">
+        <span style="font-size: 0.8125rem; color: var(--neutral-500);">사업추진 1팀</span>
+        <button class="btn btn-ghost btn-sm" onclick="logout()">로그아웃</button>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container" style="padding-top: var(--space-xl); padding-bottom: var(--space-3xl);">
+    <!-- Page Header -->
+    <div class="page-header">
+      <h1>📊 지원 현황 대시보드</h1>
+      <p>인재림 6기 지원자 현황을 한눈에 확인하고 관리하세요.</p>
+    </div>
+
+    <!-- Stats Grid -->
+    <div class="stats-grid" id="stats-grid">
+      <div class="stat-card blue">
+        <div class="stat-icon">📋</div>
+        <div class="stat-value" id="stat-total">0</div>
+        <div class="stat-label">총 지원자</div>
+      </div>
+      <div class="stat-card orange">
+        <div class="stat-icon">🔍</div>
+        <div class="stat-value" id="stat-review">0</div>
+        <div class="stat-label">서류검토중</div>
+      </div>
+      <div class="stat-card green">
+        <div class="stat-icon">✅</div>
+        <div class="stat-value" id="stat-pass">0</div>
+        <div class="stat-label">합격</div>
+      </div>
+      <div class="stat-card red">
+        <div class="stat-icon">❌</div>
+        <div class="stat-value" id="stat-fail">0</div>
+        <div class="stat-label">불합격</div>
+      </div>
+    </div>
+
+    <!-- Applicants Table -->
+    <div class="table-container">
+      <div class="table-header">
+        <div class="table-title">지원자 목록</div>
+        <div class="table-actions">
+          <input type="text" class="search-input" id="search-input" placeholder="이름 또는 이메일 검색..." oninput="filterTable()">
+          <select class="filter-select" id="status-filter" onchange="filterTable()">
+            <option value="">전체 상태</option>
+            <option value="review">서류검토중</option>
+            <option value="pass">합격</option>
+            <option value="fail">불합격</option>
+          </select>
+        </div>
+      </div>
+      <div style="overflow-x: auto;">
+        <table>
+          <thead>
+            <tr>
+              <th>이름</th>
+              <th>이메일</th>
+              <th>학교</th>
+              <th>전공</th>
+              <th>지원일</th>
+              <th>상태</th>
+              <th>상태 변경</th>
+              <th>상세</th>
+            </tr>
+          </thead>
+          <tbody id="applicants-tbody">
+            <!-- Dynamically populated -->
+          </tbody>
+        </table>
+      </div>
+      <div id="empty-state" style="display: none; text-align: center; padding: 60px 20px;">
+        <div style="font-size: 3rem; margin-bottom: var(--space-md); opacity: 0.4;">📭</div>
+        <p style="font-size: 1rem; color: var(--neutral-400);">아직 지원자가 없습니다.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Detail Modal -->
+  <div class="modal-overlay" id="detail-modal">
+    <div class="modal">
+      <div class="modal-header">
+        <h3 id="modal-title">지원서 상세</h3>
+        <button class="modal-close" onclick="closeModal()">✕</button>
+      </div>
+      <div class="modal-body" id="modal-body">
+        <!-- Dynamically populated -->
+      </div>
+    </div>
+  </div>
+
+  <div class="toast-container" id="toast-container"></div>
+
+  <script src="/js/app.js"></script>
+  <script src="/js/admin.js"></script>
+</body>
+</html>
